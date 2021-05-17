@@ -14,25 +14,26 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # data from  https://www.kaggle.com/the-guardian/olympic-games
 
+# data merging in dataframe (Jean-François)
 
 
-# For each sport , the number of olympics this sport is present
+# For each sport , the number of olympics this sport is present (Alexander)
 
-# For each sport , in which olympics this sport is present 
+# For each sport , in which olympics this sport is present  (David)
 
-#Which country is better in summer/winter ?
+# Which country is better in summer/winter ? (Jean-François)
 
-#Countries with most medals Total and by discipline
+# Countries with most medals Total and by discipline (Van Tien)
 
-#For each athlete, number of medals in the oympics particpated
+# For each athlete, number of medals in the oympics participated (Christina)
+
+# Evolution   % men, % women (Zahra)
+
+# for each country, the metal repartition (Pramod)
 
 
-#Evolution   % men, % women
-
-# for each country, the metal repartition.
-
-#Example of crossing datasets together : finding the datasets of happiness per country, to find out if happy people get medals
-
+# Example of crossing datasets together : finding the datasets of happiness per country, to find out if happy people get medals (Arun)
+# https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021
 
 
 
