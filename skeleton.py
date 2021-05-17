@@ -34,7 +34,7 @@ most_medals = summer_and_winter[["Country", "Medal"]].groupby(["Country"]).count
 # Select the 20 country with the most overall numbe of medals
 top20_country = most_medals["Country"][:20].values
 top20_per_season = nb_medal_season_country[nb_medal_season_country["Country"].isin(top20_country)]
-best_winter_summer = px.histogram(top20_per_season, x="Country", y="Medal", barnorm="percent", hover_data=["Medal"], color="Season") 
+top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal", barnorm="percent", hover_data=["Medal"], color="Season") 
 
 # Countries with most medals Total and by discipline (Van Tien)
 
