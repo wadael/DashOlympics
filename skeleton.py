@@ -28,13 +28,17 @@ summer_and_winter = pd.concat([summer_df, winter_df], axis=0)
 # For each sport , in which olympics this sport is present  (David)
 
 # Which country is better in summer/winter ? (Jean-François)
-nb_medal_season_country = summer_and_winter[["Country", "Season", "Medal"]].groupby(["Country", "Season"]).count().reset_index().sort_values(by="Medal", ascending = False)
-most_medals = summer_and_winter[["Country", "Medal"]].groupby(["Country"]).count().reset_index().sort_values(by="Medal", ascending = False)
+nb_medal_season_country = summer_and_winter[["Country", "Season", "Medal"]].groupby(["Country", "Season"]) \
+                                            .count().reset_index().sort_values(by="Medal", ascending = False)
+most_medals = summer_and_winter[["Country", "Medal"]].groupby(["Country"]) \
+                                    .count().reset_index().sort_values(by="Medal", ascending = False)
 
 # Select the 20 country with the most overall numbe of medals
 top20_country = most_medals["Country"][:20].values
 top20_per_season = nb_medal_season_country[nb_medal_season_country["Country"].isin(top20_country)]
-top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal", barnorm="percent", hover_data=["Medal"], color="Season") 
+top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal", barnorm="percent", 
+                                         hover_data=["Medal"], color="Season",
+                                         title="Top20 countries in number of medals, split by Winter/summer") 
 
 # Countries with most medals Total and by discipline (Van Tien)
 
