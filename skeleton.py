@@ -15,7 +15,13 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # data from  https://www.kaggle.com/the-guardian/olympic-games
 
 # data merging in dataframe (Jean-François)
-
+# Load both files in pandas DF
+summer_df = pd.read_csv("summer.csv")
+winter_df = pd.read_csv("winter.csv")
+# Add column for the "Season" and concatenate both DF
+summer_df['Season'] = "Summer"
+winter_df['Season'] = "Winter"
+summer_and_winter = pd.concat([summer_df, winter_df], axis=0)
 
 # For each sport , the number of olympics this sport is present (Alexander)
 
