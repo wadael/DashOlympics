@@ -49,6 +49,10 @@ top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal
 # for each country, the metal repartition (Pramod)
 
 
+#Country that have most, least and Average medals (Pramod)
+nb_medals = px.box(summer_and_winter, x="Medal", y="Country",color = "Medal")
+nd_medals.show()
+
 # Example of crossing datasets together : finding the datasets of happiness per country, to find out if happy people get medals (Arun)
 # https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021
 
@@ -64,13 +68,14 @@ app.layout = html.Div(children=[
     dcc.Graph(
         id='example-graph',
         figure=fig
-    )
-    ,
+    ),
+    html.H6(
+        children="Observation and Comments: Using Boxplot, We can observe that which country has most and least medals the boxplot also give information that number of medals won by each country and tell us average and least and most medals for respective countries.",
+        style={'color': 'black', 'fontSize': 12}),
     dcc.Graph(
         id='example-graph2',
-        figure=fig
+        figure=nb_medals
     )
-
 ])
 
 if __name__ == '__main__':
