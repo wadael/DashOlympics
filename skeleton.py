@@ -40,7 +40,7 @@ summer_and_winter = pd.concat([summer_df, winter_df], axis=0)
 
 # Example of crossing datasets together : finding the datasets of happiness per country, to find out if happy people get medals (Arun)
 # https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021
-
+happiness = pd.read_csv('world-happiness-report-2021.csv')
 
 
 app.layout = html.Div(children=[
