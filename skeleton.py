@@ -59,6 +59,23 @@ nd_medals.show()
 # Example of crossing datasets together : finding the datasets of happiness per country, to find out if happy people get medals (Arun)
 # https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021
 happiness = pd.read_csv('world-happiness-report-2021.csv')
+# happiness = pd.read_csv('world-happiness-report-2021.csv')
+# import io
+# import requests
+# url="https://gist.githubusercontent.com/radcliff/f09c0f88344a7fcef373/raw/2753c482ad091c54b1822288ad2e4811c021d8ec/wikipedia-iso-country-codes.csv"
+# s=requests.get(url).content
+# c=pd.read_csv(io.StringIO(s.decode('utf-8')))
+# codes = c.rename(columns={"English short name lower case": "Country_name", "Alpha-3 code" : "Country"})
+# happiness = happiness[['Country', 'Ladder score']]
+# codes.loc[codes['Country_name'] == 'Greece']
+# codes.loc[codes['Country'] == 'GRE']
+
+# comments 
+# - country code formats are different in happiness and summer_and_winter datasets
+# -  eg >Greece and GRE
+# - found a dataset online with country and country codes
+# - it also didnt match with summer_and_winter datasets it is found that olympic uses different country codes than normal
+# - so dataframes couldnot be able to merged and ploting is not feasible
 
 
 app.layout = html.Div(children=[
