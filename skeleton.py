@@ -45,8 +45,7 @@ top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal
 # For each athlete, number of medals in the oympics participated (Christina)
 
 # Evolution   % men, % women (Zahra)
-fig = px.pie(summer_and_winter, values='Counts', names='Gender', width=600, height=600,
-             color='Gender')
+fig = px.pie(summer_and_winter, values='Counts', names='Gender', color='Gender')
 fig.show()
 
 
@@ -68,10 +67,12 @@ app.layout = html.Div(children=[
     html.Div(children='''
         Dash: A web application framework for Python.
     '''),
-
+    html.H4(
+         children = " Pie Chart to recognize the percentage of male and female athletes " )
+               
     dcc.Graph(
-        id='example-graph',
-        figure=fig
+        id ='example-graph',
+        figure = fig
     ),
     html.H6(
         children="Observation and Comments: Using Boxplot, We can observe that which country has most and least medals the boxplot also give information that number of medals won by each country and tell us average and least and most medals for respective countries.",
