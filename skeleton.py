@@ -45,6 +45,10 @@ top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal
 # For each athlete, number of medals in the oympics participated (Christina)
 
 # Evolution   % men, % women (Zahra)
+fig = px.pie(summer_and_winter, values='Counts', names='Gender', width=600, height=600,
+             color='Gender')
+fig.show()
+
 
 # for each country, the metal repartition (Pramod)
 
