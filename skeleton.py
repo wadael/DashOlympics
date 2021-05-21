@@ -8,6 +8,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
+from dash.dependencies import Input, Output
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -35,7 +36,9 @@ most_medals = summer_and_winter[["Country", "Medal"]].groupby(["Country"]) \
 
 # Select the 20 country with the most overall numbe of medals
 top20_country = most_medals["Country"][:20].values
+
 top20_per_season = nb_medal_season_country[nb_medal_season_country["Country"].isin(top20_country)]
+
 top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal", barnorm="percent", 
                                          hover_data=["Medal"], color="Season",
                                          title="Top20 countries in number of medals, split by Winter/summer") 
@@ -45,8 +48,10 @@ top20_winter_summer_chart = px.histogram(top20_per_season, x="Country", y="Medal
 # For each athlete, number of medals in the oympics participated (Christina)
 
 # Evolution   % men, % women (Zahra)
-fig = px.pie(summer_and_winter, values='Counts', names='Gender', color='Gender')
-fig.show()
+evolution_gender = summer_and_winter[["Gender", "Year", "Medal"]].groupby(['Gender', 'Year']).count().reset_index() # jfb
+# fig = px.pie(summer_and_winter, values='Counts', names='Gender', color='Gender')
+
+fig = px.histogram(evolution_gender, x="Year", y="Medal", barnorm="percent", hover_data=["Medal"], color="Gender", nbins = 32) 
 
 
 # for each country, the metal repartition (Pramod)
@@ -54,7 +59,6 @@ fig.show()
 
 #Country that have most, least and Average medals (Pramod)
 nb_medals = px.box(summer_and_winter, x="Medal", y="Country",color = "Medal")
-nd_medals.show()
 
 # Example of crossing datasets together : finding the datasets of happiness per country, to find out if happy people get medals (Arun)
 # https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021
@@ -85,7 +89,7 @@ app.layout = html.Div(children=[
         Dash: A web application framework for Python.
     '''),
     html.H4(
-         children = " Pie Chart to recognize the percentage of male and female athletes " )
+         children = " Pie Chart to recognize the percentage of male and female athletes " ),
                
     dcc.Graph(
         id ='example-graph',
@@ -95,10 +99,46 @@ app.layout = html.Div(children=[
         children="Observation and Comments: Using Boxplot, We can observe that which country has most and least medals the boxplot also give information that number of medals won by each country and tell us average and least and most medals for respective countries.",
         style={'color': 'black', 'fontSize': 12}),
     dcc.Graph(
-        id='example-graph2',
+        id='nb_medals_graph',
         figure=nb_medals
     )
+
+,
+html.Div(["Input: ", dcc.Input(id='countrycode-input', value='32', type='text')])
+,
+html.H6(children="Number of medals per country"),
+    dcc.Graph(
+        id='top20_winter_summer_chart',
+        figure=top20_winter_summer_chart
+    )
+,
+dcc.Slider(
+        id='year-slider',
+        min=evolution_gender['Year'].min(),
+        max=evolution_gender['Year'].max(),
+        value=evolution_gender['Year'].min(),
+        marks={str(year): str(year) for year in evolution_gender['Year'].unique()},
+        step=None
+    )
 ])
+
+
+
+@app.callback(
+    Output('nb_medals_graph', 'figure'),
+    Input('year-slider', 'value'))
+def update_figure(selected_year):
+    filtered_df = evolution_gender[evolution_gender.Year == selected_year]
+    fig = px.histogram(filtered_df, x="Year", y="Medal", barnorm="percent", hover_data=["Medal"], color="Gender", nbins = 32  ) 
+    fig.update_layout(transition_duration=500)
+    return fig
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
